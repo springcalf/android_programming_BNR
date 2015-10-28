@@ -18,6 +18,7 @@ public class GeoQuiz extends AppCompatActivity {
     private Button mPreButton;
     private Button mCheatButton;
     private TextView mQuestionTextView;
+    private boolean mIsCheater;
 
     private static  final String TAG = "GeoQuiz";
     private static final String KEY_INDEX = "index";
@@ -42,13 +43,16 @@ public class GeoQuiz extends AppCompatActivity {
     {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
         int messageResId = 0;
-        if (userPressedTrue == answerIsTrue)
+        if (mIsCheater)
         {
-            messageResId = R.string.correct_toast;
+            messageResId = R.string.cheat_button;
         }
-        else
-        {
-            messageResId = R.string.incorrect_toast;
+        else {
+            if (userPressedTrue == answerIsTrue) {
+                messageResId = R.string.correct_toast;
+            } else {
+                messageResId = R.string.incorrect_toast;
+            }
         }
         Toast.makeText(GeoQuiz.this,messageResId,Toast.LENGTH_SHORT).show();
     }
@@ -83,6 +87,7 @@ public class GeoQuiz extends AppCompatActivity {
             public void onClick(View v) {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
+                mIsCheater = false;
             }
         });
 
@@ -109,8 +114,9 @@ public class GeoQuiz extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(GeoQuiz.this,CheatActivity.class);
                 boolean answer = mQuestionBank[mCurrentIndex].isTrueQuestion();
-                intent.putExtra(EXTRA_ANSWER_IS_TRUE,answer);
-                startActivity(intent);
+                intent.putExtra(EXTRA_ANSWER_IS_TRUE, answer);
+              //  startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
 
@@ -175,6 +181,18 @@ public class GeoQuiz extends AppCompatActivity {
     {
         super.onSaveInstanceState(savedInstanceState);
         Log.d(TAG, "onSaveInstanceState");
-        savedInstanceState.putInt(KEY_INDEX,mCurrentIndex);
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+    @Override
+    protected  void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        if (data == null)
+        {
+            return;
+        }
+        else
+        {
+            mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN,false);
+        }
     }
 }
