@@ -63,6 +63,7 @@ public class GeoQuiz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+            mIsCheater = savedInstanceState.getBoolean(CheatActivity.EXTRA_ANSWER_SHOWN,false);
         }
         setContentView(R.layout.activity_geo_quiz);
         mFalseButton = (Button)findViewById(R.id.false_button);
@@ -182,6 +183,7 @@ public class GeoQuiz extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.d(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBoolean(CheatActivity.EXTRA_ANSWER_SHOWN,mIsCheater);
     }
     @Override
     protected  void onActivityResult(int requestCode,int resultCode,Intent data)
