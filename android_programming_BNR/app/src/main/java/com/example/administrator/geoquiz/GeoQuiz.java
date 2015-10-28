@@ -2,6 +2,7 @@ package com.example.administrator.geoquiz;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,6 +73,14 @@ public class GeoQuiz extends AppCompatActivity {
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
             }
+        });
+
+        mQuestionTextView.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
+                  updateQuestion();
+              }
         });
         updateQuestion();
     }
