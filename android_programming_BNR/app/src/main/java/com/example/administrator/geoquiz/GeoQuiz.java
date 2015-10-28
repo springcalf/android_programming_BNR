@@ -13,7 +13,8 @@ import android.widget.Toast;
 public class GeoQuiz extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
-    private  Button mNextButton;
+    private Button mNextButton;
+    private Button mPreButton;
     private TextView mQuestionTextView;
 
     private TrueFalse[] mQuestionBank = new  TrueFalse[]
@@ -82,6 +83,16 @@ public class GeoQuiz extends AppCompatActivity {
                   updateQuestion();
               }
         });
+
+        mPreButton = (Button)findViewById(R.id.pre_button);
+        mPreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+             public void onClick(View v) {
+                mCurrentIndex=((mCurrentIndex-1)+mQuestionBank.length)%mQuestionBank.length;
+                updateQuestion();
+             }
+        });
+
         updateQuestion();
     }
 
