@@ -1,5 +1,6 @@
 package com.example.administrator.geoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,12 @@ public class GeoQuiz extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPreButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
 
     private static  final String TAG = "GeoQuiz";
     private static final String KEY_INDEX = "index";
+    private static  final  String EXTRA_ANSWER_IS_TRUE ="answer_is_true";
 
     private TrueFalse[] mQuestionBank = new  TrueFalse[]
             {
@@ -31,7 +34,6 @@ public class GeoQuiz extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private  void updateQuestion()
     {
-        Log.d(TAG,"question #"+mCurrentIndex,new Exception());
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
     }
@@ -53,7 +55,7 @@ public class GeoQuiz extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG,"onCreate");
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
@@ -79,7 +81,7 @@ public class GeoQuiz extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
+                mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
             }
         });
@@ -100,6 +102,18 @@ public class GeoQuiz extends AppCompatActivity {
                 updateQuestion();
              }
         });
+
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GeoQuiz.this,CheatActivity.class);
+                boolean answer = mQuestionBank[mCurrentIndex].isTrueQuestion();
+                intent.putExtra(EXTRA_ANSWER_IS_TRUE,answer);
+                startActivity(intent);
+            }
+        });
+
 
         updateQuestion();
     }
