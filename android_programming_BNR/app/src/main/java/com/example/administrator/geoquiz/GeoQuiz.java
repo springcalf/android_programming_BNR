@@ -31,6 +31,7 @@ public class GeoQuiz extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private  void updateQuestion()
     {
+        Log.d(TAG,"question #"+mCurrentIndex,new Exception());
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
     }
@@ -78,7 +79,7 @@ public class GeoQuiz extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
+               // mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
             }
         });
