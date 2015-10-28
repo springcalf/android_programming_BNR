@@ -17,6 +17,8 @@ public class GeoQuiz extends AppCompatActivity {
     private Button mPreButton;
     private TextView mQuestionTextView;
 
+    private static  final String TAG = "GeoQuiz";
+
     private TrueFalse[] mQuestionBank = new  TrueFalse[]
             {
                     new TrueFalse(R.string.question_americas,true),
@@ -49,6 +51,7 @@ public class GeoQuiz extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_quiz);
         mFalseButton = (Button)findViewById(R.id.false_button);
@@ -116,5 +119,35 @@ public class GeoQuiz extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onStart()
+    {
+        Log.d(TAG,"onStart");
+        super.onStart();
+    }
+    @Override
+    public  void onResume()
+    {
+        Log.d(TAG,"onResume");
+        super.onResume();
+    }
+    @Override
+    public void onPause()
+    {
+        Log.d(TAG,"onPause");
+        super.onPause();
+    }
+    @Override
+    public void onStop()
+    {
+        Log.d(TAG,"onStop");
+        super.onStop();
+    }
+    @Override
+    public void onDestroy()
+    {
+        Log.d(TAG,"onDestroy");
+        super.onDestroy();
     }
 }
