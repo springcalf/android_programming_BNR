@@ -18,6 +18,7 @@ public class GeoQuiz extends AppCompatActivity {
     private TextView mQuestionTextView;
 
     private static  final String TAG = "GeoQuiz";
+    private static final String KEY_INDEX = "index";
 
     private TrueFalse[] mQuestionBank = new  TrueFalse[]
             {
@@ -53,6 +54,9 @@ public class GeoQuiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"onCreate");
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+        }
         setContentView(R.layout.activity_geo_quiz);
         mFalseButton = (Button)findViewById(R.id.false_button);
         mTrueButton = (Button)findViewById(R.id.true_button);
@@ -149,5 +153,13 @@ public class GeoQuiz extends AppCompatActivity {
     {
         Log.d(TAG,"onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX,mCurrentIndex);
     }
 }
