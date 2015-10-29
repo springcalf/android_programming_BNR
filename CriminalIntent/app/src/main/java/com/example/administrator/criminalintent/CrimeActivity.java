@@ -7,22 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 
 
-public class CrimeActivity extends FragmentActivity {
+public class CrimeActivity extends SingleFragmentActivity {
     private static  final  String TAG = "CrimeActivity";
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime);
-
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
-
-        if (fragment == null) {
-            fragment = new CrimeFragment();
-            fm.beginTransaction().add(R.id.fragmentContainer,fragment).commit();
-        }
-
+    protected  Fragment createFragment()
+    {
+        return  new CrimeFragment();
     }
     @Override
     public  void onStart()
