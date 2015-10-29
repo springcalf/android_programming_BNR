@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.UUID;
+
 
 public class CrimeActivity extends SingleFragmentActivity {
     private static  final  String TAG = "CrimeActivity";

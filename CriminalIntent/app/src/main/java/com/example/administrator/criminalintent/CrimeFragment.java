@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 
 /**
  * Created by Administrator on 2015/10/29.
@@ -24,12 +26,15 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private static  final  String TAG = "CrimeFragment";
+    public  static  final  String CRIME_UUID="Crime_UUID";
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        Log.d(TAG,"onCreate");
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+      //  mCrime = new Crime();
+        UUID crime_uuid = (UUID)getActivity().getIntent().getSerializableExtra(CRIME_UUID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crime_uuid);
     }
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup parent,Bundle savedInstanceState)
@@ -42,6 +47,7 @@ public class CrimeFragment extends Fragment {
         mDateButton.setEnabled(false);
 
         mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.ismSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -49,6 +55,7 @@ public class CrimeFragment extends Fragment {
             }
         });
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getmTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

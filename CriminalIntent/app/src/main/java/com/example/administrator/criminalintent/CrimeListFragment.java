@@ -1,5 +1,6 @@
 package com.example.administrator.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -34,7 +35,12 @@ public class CrimeListFragment extends ListFragment {
     {
        // Crime c = (Crime)(getListAdapter()).getItem(position);
         Crime c =((CrimeAdapter)getListAdapter()).getItem(position);
-        Log.d(TAG,c.getmTitle()+" was clicked");
+      //  Log.d(TAG,c.getmTitle()+" was clicked");
+
+        // start Activity
+        Intent i = new Intent(getActivity(),CrimeActivity.class);
+        i.putExtra(CrimeFragment.CRIME_UUID,c.getmID());
+        startActivity(i);
     }
     private class CrimeAdapter extends  ArrayAdapter<Crime>
     {
